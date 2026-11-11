@@ -34,9 +34,7 @@ const clearDisplay = () => {
   isWaitingForSecond.value = false
 }
 const setOperator = (op) => {
-  if (operator.value !== null && !isWaitingForSecond.value) {
-    calculate()
-  }
+  if (operator.value !== null && !isWaitingForSecond.value) calculate()
   firstOperand.value = parseFloat(currentValue.value)
   operator.value = op
   isWaitingForSecond.value = true
@@ -49,7 +47,15 @@ const calculate = () => {
     case '+': result = firstOperand.value + secondOperand; break
     case '-': result = firstOperand.value - secondOperand; break
     case '*': result = firstOperand.value * secondOperand; break
-    case '/': result = firstOperand.value / secondOperand; break
+    case '/': 
+      if (secondOperand === 0) {
+        currentValue.value = "不能除以零"
+        firstOperand.value = null
+        operator.value = null
+        isWaitingForSecond.value = false
+        return
+      }
+      result = firstOperand.value / secondOperand; break
   }
   currentValue.value = String(result)
   firstOperand.value = null

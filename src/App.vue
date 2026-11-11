@@ -6,7 +6,7 @@
       <button @click="appendNumber('4')">4</button><button @click="appendNumber('5')">5</button><button @click="appendNumber('6')">6</button><button class="operator">×</button>
       <button @click="appendNumber('1')">1</button><button @click="appendNumber('2')">2</button><button @click="appendNumber('3')">3</button><button class="operator">-</button>
       <button @click="appendNumber('0')">0</button><button @click="appendNumber('.')">.</button><button class="operator">+</button>
-      <button class="clear">C</button><button class="operator">=</button>
+      <button class="clear" @click="clearDisplay">C</button><button class="operator">=</button>
     </div>
   </div>
 </template>
@@ -21,6 +21,7 @@ const appendNumber = (num) => {
     currentValue.value += num
   }
 }
+const clearDisplay = () => { currentValue.value = '0' }
 </script>
 
 <style scoped>

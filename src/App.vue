@@ -2,10 +2,10 @@
   <div class="calculator">
     <div class="display">{{ currentValue }}</div>
     <div class="buttons">
-      <button @click="appendNumber('7')">7</button><button @click="appendNumber('8')">8</button><button @click="appendNumber('9')">9</button><button class="operator">÷</button>
-      <button @click="appendNumber('4')">4</button><button @click="appendNumber('5')">5</button><button @click="appendNumber('6')">6</button><button class="operator">×</button>
-      <button @click="appendNumber('1')">1</button><button @click="appendNumber('2')">2</button><button @click="appendNumber('3')">3</button><button class="operator">-</button>
-      <button @click="appendNumber('0')">0</button><button @click="appendNumber('.')">.</button><button class="operator">+</button>
+      <button @click="appendNumber('7')">7</button><button @click="appendNumber('8')">8</button><button @click="appendNumber('9')">9</button><button class="operator" @click="setOperator('/')">÷</button>
+      <button @click="appendNumber('4')">4</button><button @click="appendNumber('5')">5</button><button @click="appendNumber('6')">6</button><button class="operator" @click="setOperator('*')">×</button>
+      <button @click="appendNumber('1')">1</button><button @click="appendNumber('2')">2</button><button @click="appendNumber('3')">3</button><button class="operator" @click="setOperator('-')">-</button>
+      <button @click="appendNumber('0')">0</button><button @click="appendNumber('.')">.</button><button class="operator" @click="setOperator('+')">+</button>
       <button class="clear" @click="clearDisplay">C</button><button class="operator">=</button>
     </div>
   </div>
@@ -14,14 +14,30 @@
 <script setup>
 import { ref } from 'vue'
 const currentValue = ref('0')
+const firstOperand = ref(null)
+const operator = ref(null)
+const isWaitingForSecond = ref(false)
+
 const appendNumber = (num) => {
-  if (currentValue.value === '0' && num !== '.') {
-    currentValue.value = num
+  if (isWaitingForSecond.value) {
+    currentValue.value = num === '.' ? '0.' : num
+    isWaitingForSecond.value = false
   } else {
-    currentValue.value += num
+    if (currentValue.value === '0' && num !== '.') currentValue.value = num
+    else currentValue.value += num
   }
 }
-const clearDisplay = () => { currentValue.value = '0' }
+const clearDisplay = () => {
+  currentValue.value = '0'
+  firstOperand.value = null
+  operator.value = null
+  isWaitingForSecond.value = false
+}
+const setOperator = (op) => {
+  firstOperand.value = parseFloat(currentValue.value)
+  operator.value = op
+  isWaitingForSecond.value = true
+}
 </script>
 
 <style scoped>

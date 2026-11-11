@@ -22,3 +22,4 @@
 npm install
 npm run dev
 \`\`\`
+面试测试专用

@@ -1,15 +1,27 @@
 <template>
   <div class="calculator">
-    <div class="display">0</div>
+    <div class="display">{{ currentValue }}</div>
     <div class="buttons">
-      <button>7</button><button>8</button><button>9</button><button class="operator">÷</button>
-      <button>4</button><button>5</button><button>6</button><button class="operator">×</button>
-      <button>1</button><button>2</button><button>3</button><button class="operator">-</button>
-      <button>0</button><button>.</button><button class="operator">+</button>
+      <button @click="appendNumber('7')">7</button><button @click="appendNumber('8')">8</button><button @click="appendNumber('9')">9</button><button class="operator">÷</button>
+      <button @click="appendNumber('4')">4</button><button @click="appendNumber('5')">5</button><button @click="appendNumber('6')">6</button><button class="operator">×</button>
+      <button @click="appendNumber('1')">1</button><button @click="appendNumber('2')">2</button><button @click="appendNumber('3')">3</button><button class="operator">-</button>
+      <button @click="appendNumber('0')">0</button><button @click="appendNumber('.')">.</button><button class="operator">+</button>
       <button class="clear">C</button><button class="operator">=</button>
     </div>
   </div>
 </template>
+
+<script setup>
+import { ref } from 'vue'
+const currentValue = ref('0')
+const appendNumber = (num) => {
+  if (currentValue.value === '0' && num !== '.') {
+    currentValue.value = num
+  } else {
+    currentValue.value += num
+  }
+}
+</script>
 
 <style scoped>
 .calculator { width: 320px; margin: 50px auto; background-color: #202020; border-radius: 8px; padding: 20px; font-family: 'Segoe UI', sans-serif; }

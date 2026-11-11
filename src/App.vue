@@ -6,7 +6,7 @@
       <button @click="appendNumber('4')">4</button><button @click="appendNumber('5')">5</button><button @click="appendNumber('6')">6</button><button class="operator" @click="setOperator('*')">×</button>
       <button @click="appendNumber('1')">1</button><button @click="appendNumber('2')">2</button><button @click="appendNumber('3')">3</button><button class="operator" @click="setOperator('-')">-</button>
       <button @click="appendNumber('0')">0</button><button @click="appendNumber('.')">.</button><button class="operator" @click="setOperator('+')">+</button>
-      <button class="clear" @click="clearDisplay">C</button><button class="operator">=</button>
+      <button class="clear" @click="clearDisplay">C</button><button class="operator" @click="calculate">=</button>
     </div>
   </div>
 </template>
@@ -37,6 +37,21 @@ const setOperator = (op) => {
   firstOperand.value = parseFloat(currentValue.value)
   operator.value = op
   isWaitingForSecond.value = true
+}
+const calculate = () => {
+  if (operator.value === null || firstOperand.value === null) return
+  const secondOperand = parseFloat(currentValue.value)
+  let result = 0
+  switch (operator.value) {
+    case '+': result = firstOperand.value + secondOperand; break
+    case '-': result = firstOperand.value - secondOperand; break
+    case '*': result = firstOperand.value * secondOperand; break
+    case '/': result = firstOperand.value / secondOperand; break
+  }
+  currentValue.value = String(result)
+  firstOperand.value = null
+  operator.value = null
+  isWaitingForSecond.value = false
 }
 </script>
 

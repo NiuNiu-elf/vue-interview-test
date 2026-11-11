@@ -34,6 +34,9 @@ const clearDisplay = () => {
   isWaitingForSecond.value = false
 }
 const setOperator = (op) => {
+  if (operator.value !== null && !isWaitingForSecond.value) {
+    calculate()
+  }
   firstOperand.value = parseFloat(currentValue.value)
   operator.value = op
   isWaitingForSecond.value = true

@@ -6,7 +6,7 @@
       <button @click="appendNumber('4')">4</button><button @click="appendNumber('5')">5</button><button @click="appendNumber('6')">6</button><button class="operator" @click="setOperator('*')">×</button>
       <button @click="appendNumber('1')">1</button><button @click="appendNumber('2')">2</button><button @click="appendNumber('3')">3</button><button class="operator" @click="setOperator('-')">-</button>
       <button @click="appendNumber('0')">0</button><button @click="appendNumber('.')">.</button><button class="operator" @click="setOperator('+')">+</button>
-      <button class="clear" @click="clearDisplay">C</button><button class="operator" @click="calculate">=</button>
+      <button class="clear" @click="clearDisplay">C</button><button class="operator equals" @click="calculate">=</button>
     </div>
   </div>
 </template>
@@ -68,10 +68,13 @@ const calculate = () => {
 .calculator { width: 320px; margin: 50px auto; background-color: #202020; border-radius: 8px; padding: 20px; font-family: 'Segoe UI', sans-serif; }
 .display { background-color: #202020; color: white; font-size: 48px; text-align: right; padding: 10px; margin-bottom: 20px; min-height: 70px; }
 .buttons { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
-.buttons button { font-size: 20px; padding: 15px; border: none; border-radius: 6px; background-color: #3b3b3b; color: white; cursor: pointer; }
+.buttons button { font-size: 20px; padding: 15px; border: none; border-radius: 6px; background-color: #3b3b3b; color: white; cursor: pointer; transition: all 0.1s; }
 .buttons button:hover { background-color: #4a4a4a; }
+.buttons button:active { transform: scale(0.96); opacity: 0.8; }
 .operator { background-color: #323232 !important; }
 .operator:hover { background-color: #404040 !important; }
+.equals { background-color: #76b9ed !important; color: #000 !important; font-weight: bold; }
+.equals:hover { background-color: #66a6d6 !important; }
 .clear { background-color: #d32f2f !important; }
 .clear:hover { background-color: #e53935 !important; }
 </style>

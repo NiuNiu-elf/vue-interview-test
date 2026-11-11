@@ -82,9 +82,9 @@ onUnmounted(() => { window.removeEventListener('keydown', handleKeydown) })
 .buttons button:active { transform: scale(0.96); opacity: 0.8; }
 .operator { background-color: #323232 !important; }
 .operator:hover { background-color: #404040 !important; }
-.equals { background-color: #76b9ed !important; color: #000 !important; font-weight: bold; }
+.equals { background-color: #76b9ed !important; color: #000 !important; font-weight: bold;grid-column: span 2;  }
 .equals:hover { background-color: #66a6d6 !important; }
-.clear { background-color: #d32f2f !important; }
+.clear { background-color: #d32f2f !important; grid-column: span 2;}
 .clear:hover { background-color: #e53935 !important; }
 .zero { grid-column: span 2; }
 </style>

@@ -12,7 +12,7 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { ref, onMounted, onUnmounted } from 'vue'
 const currentValue = ref('0')
 const firstOperand = ref(null)
 const operator = ref(null)
@@ -62,6 +62,17 @@ const calculate = () => {
   operator.value = null
   isWaitingForSecond.value = false
 }
+
+// 新增键盘输入逻辑
+const handleKeydown = (event) => {
+  const key = event.key;
+  if (/^[0-9.]$/.test(key)) appendNumber(key)
+  else if (['+', '-', '*', '/'].includes(key)) setOperator(key)
+  else if (key === 'Enter' || key === '=') calculate()
+  else if (key.toLowerCase() === 'c' || key === 'Escape') clearDisplay()
+}
+onMounted(() => { window.addEventListener('keydown', handleKeydown) })
+onUnmounted(() => { window.removeEventListener('keydown', handleKeydown) })
 </script>
 
 <style scoped>

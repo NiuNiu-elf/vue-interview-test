@@ -5,7 +5,7 @@
       <button @click="appendNumber('7')">7</button><button @click="appendNumber('8')">8</button><button @click="appendNumber('9')">9</button><button class="operator" @click="setOperator('/')">÷</button>
       <button @click="appendNumber('4')">4</button><button @click="appendNumber('5')">5</button><button @click="appendNumber('6')">6</button><button class="operator" @click="setOperator('*')">×</button>
       <button @click="appendNumber('1')">1</button><button @click="appendNumber('2')">2</button><button @click="appendNumber('3')">3</button><button class="operator" @click="setOperator('-')">-</button>
-      <button @click="appendNumber('0')">0</button><button @click="appendNumber('.')">.</button><button class="operator" @click="setOperator('+')">+</button>
+      <button class="zero" @click="appendNumber('0')">0</button><button @click="appendNumber('.')">.</button><button class="operator" @click="setOperator('+')">+</button>
       <button class="clear" @click="clearDisplay">C</button><button class="operator equals" @click="calculate">=</button>
     </div>
   </div>
@@ -62,8 +62,6 @@ const calculate = () => {
   operator.value = null
   isWaitingForSecond.value = false
 }
-
-// 新增键盘输入逻辑
 const handleKeydown = (event) => {
   const key = event.key;
   if (/^[0-9.]$/.test(key)) appendNumber(key)
@@ -88,4 +86,5 @@ onUnmounted(() => { window.removeEventListener('keydown', handleKeydown) })
 .equals:hover { background-color: #66a6d6 !important; }
 .clear { background-color: #d32f2f !important; }
 .clear:hover { background-color: #e53935 !important; }
+.zero { grid-column: span 2; }
 </style>
